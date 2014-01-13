@@ -1,0 +1,2 @@
+void	class_init()
+{}

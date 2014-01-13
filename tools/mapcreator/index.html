@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Map Creator</title>
+	<style>
+.cell {
+	width: 16px;
+	height: 16px;
+}
+
+.inline {
+	display: inline;
+}
+	</style>
+</head>
+<body>
+	<div id="config">
+		<label for="width">Width</label>
+		<input type="text" name="width" id="width" value="20" />
+		<br/>
+		<label for="height">Height</label>
+		<input type="text" name="height" id="height" value="20" />
+		<br/>
+	</div>
+	<div id="choice">
+		<h3 class="inline">Available elements :</h3>
+		<span id="values">
+		</span>
+		&bull; Currently selected : <input type="text" disabled name="val" id="val" />
+	</div>
+	<table border=1 id="cells"></table>
+	<textarea name="export" id="export" cols="20" rows="20"></textarea>
+	<script src="map.js"></script>
+</body>
+</html>

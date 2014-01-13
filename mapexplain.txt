@@ -1,0 +1,14 @@
+" " Grass
+"S" Sapin
+"R" Rock
+"P" Panel
+
+"W" Water
+
+"+" /!\ Character
+
+"?" Mob : Jirachi
+
+-----
+
+Sorry Ea, I'm a poor map designer.

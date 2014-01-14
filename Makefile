@@ -26,7 +26,7 @@ OBJ		= $(SRC:.c=.o)
 CFLAGS	= -W -Wall -Werror -pedantic -ansi -g
 
 
-LIBS	= -L$(HOME)/SDLOL/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+LIBS	= -L$(HOME)/SDLOL/lib -lSDL2 -lSDL2_image -lSDL2_ttf
 
 NAME	= midgar
 

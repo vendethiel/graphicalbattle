@@ -1,5 +1,4 @@
 #include "main.h"
-#define NUM_SPRITES 6
 
 SDL_Surface* sprite_maps[] = {
 	0,

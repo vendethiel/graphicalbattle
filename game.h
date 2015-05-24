@@ -28,7 +28,7 @@ typedef struct {
 
 extern t_tick g_tick_fns[];
 
-t_game	*game_init();
+t_game	*game_init(void);
 void	game_tick(t_game *);
 void	game_quit(t_game *);
 

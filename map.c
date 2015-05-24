@@ -35,7 +35,7 @@ t_map	*map_from_string(char *str, t_character *character)
 	return (map);
 }
 
-void	map_init()
+void	map_init(void)
 {
 	sprite_init_maps();
 }

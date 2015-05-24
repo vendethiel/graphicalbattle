@@ -37,4 +37,4 @@ struct s_class;
 #include "fight/fight.h"
 
 #include "menu/draw_menu.h"
-#include "menu/class/mc.h"
+#include "menu/class.h"

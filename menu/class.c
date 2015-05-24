@@ -1,4 +1,4 @@
-#include "../../main.h"
+#include "../main.h"
 
 void draw_menu_class_select(t_game *game) {
   SDL_Surface *warrior;

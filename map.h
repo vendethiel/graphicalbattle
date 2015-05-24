@@ -1,5 +1,4 @@
-#ifndef __MAP_H__
-# define __MAP_H__
+#pragma once
 
 #include "main.h"
 
@@ -17,5 +16,3 @@ typedef struct s_map {
 t_map	*map_from_string(char *str, struct s_character *character);
 void	map_init(void);
 void	map_draw(struct s_game *);
-
-#endif /* !__MAP_H__ */

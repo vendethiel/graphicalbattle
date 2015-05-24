@@ -1,5 +1,4 @@
-#ifndef __GAME_H__
-# define __GAME_H__
+#pragma once
 
 #define NUM_STATES 5
 
@@ -31,5 +30,3 @@ extern t_tick g_tick_fns[];
 t_game	*game_init(void);
 void	game_tick(t_game *);
 void	game_quit(t_game *);
-
-#endif /* !__GAME_H__ */

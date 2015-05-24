@@ -1,5 +1,4 @@
-#ifndef __CHARACTER_H__
-# define __CHARACTER_H__
+#pragma once
 
 # include "main.h"
 
@@ -15,5 +14,3 @@ typedef struct s_character {
 
 t_character	*character_init(void);
 void	character_move(struct s_game *);
-
-#endif /* !__CHARACTER_H__ */

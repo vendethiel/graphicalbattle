@@ -1,6 +1,4 @@
-#ifndef __EVENT_H__
-# define __EVENT_H__
-
+#pragma once
 
 typedef void(*event_fn)(SDL_Event, t_game *);
 typedef struct {
@@ -10,5 +8,3 @@ typedef struct {
 
 extern t_event g_events[];
 void	event_keydown(SDL_Event, t_game *);
-
-#endif /* !__EVENT_H__ */

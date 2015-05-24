@@ -1,7 +1,5 @@
-#ifndef __MAIN_H__
-# define __MAIN_H__
+#pragma once
 
-# include <stdio.h>
 # include <string.h>
 # include <unistd.h>
 
@@ -41,7 +39,3 @@ struct s_class;
 
 #include "menu/draw_menu.h"
 #include "menu/class/mc.h"
-
-SDL_Window *create_window(void);
-
-#endif /* !__MAIN_H__ */

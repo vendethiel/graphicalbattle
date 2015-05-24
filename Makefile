@@ -8,7 +8,7 @@ SRC		= $(wildcard *.c) \
 
 OBJ		= $(SRC:.c=.o)
 
-CFLAGS	= -W -Wall -Werror -pedantic -ansi -g
+CFLAGS	= -W -Wall -Werror -pedantic -ansi -g -Wno-newline-eof
 
 
 LIBS	= -L$(HOME)/SDLOL/lib -lSDL2 -lSDL2_image -lSDL2_ttf

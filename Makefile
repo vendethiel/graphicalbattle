@@ -1,25 +1,10 @@
 CC		= clang
 
-SRC		= main.c \
-		  map.c \
-		  sprite.c \
-		  character.c \
-		  event.c \
-		  game.c \
-		  class.c \
-		  menu/draw_menu.c \
-		  menu/class/mc.c \
-		  actions/triggers.c \
-		  actions/tick.c \
-		  actions/event/keydown.c \
-		  fight/fight.c \
-		  fight/monster/monster.c \
-		  lib/xmalloc.c \
-		  lib/err.c \
-		  lib/readfile.c \
-		  lib/sdl/rect.c \
-		  lib/sdl/ximg_load.c \
-		  lib/sdl/xupdate_window_surface.c
+SRC		= $(wildcard *.c) \
+				$(wildcard lib/*.c) $(wildcard lib/sdl/*.c) \
+				$(wildcard menu/*.c) \
+				$(wildcard actions/*.c) \
+				$(wildcard fight/*.c)
 
 OBJ		= $(SRC:.c=.o)
 
@@ -36,10 +21,10 @@ $(NAME): $(OBJ)
 	gcc -o $(NAME) $(OBJ) $(LIBS)
 
 clean:
-	rm $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 
 re: clean all
 

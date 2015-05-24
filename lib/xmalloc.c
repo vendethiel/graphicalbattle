@@ -9,7 +9,7 @@ void *xmalloc(size_t size) {
     printf("Unable to allocate memory\n");
     exit(1);
   }
-  return (res);
+  return res;
 }
 
 void *xcalloc(size_t count, size_t size) {
@@ -20,5 +20,5 @@ void *xcalloc(size_t count, size_t size) {
     printf("Unable to allocate memory\n");
     exit(1);
   }
-  return (res);
+  return res;
 }

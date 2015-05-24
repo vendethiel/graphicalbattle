@@ -29,7 +29,7 @@ t_map *map_from_string(char *str, t_character *character) {
     }
     ++total; /* \n */
   }
-  return (map);
+  return map;
 }
 
 void map_init(void) { sprite_init_maps(); }

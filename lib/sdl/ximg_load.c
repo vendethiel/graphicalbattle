@@ -8,5 +8,5 @@ SDL_Surface *ximg_load(char *str) {
     printf("error loading '%s' : '%s'\n", str, IMG_GetError());
     exit(1);
   }
-  return (img);
+  return img;
 }

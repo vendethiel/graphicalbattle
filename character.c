@@ -6,7 +6,7 @@ t_character *character_init(void) {
   character = xcalloc(1, sizeof(t_character));
   character->sprite = sprite_get('+');
   character->hp = 100;
-  return (character);
+  return character;
 }
 
 void character_move(t_game *game) {

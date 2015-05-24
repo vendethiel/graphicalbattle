@@ -10,7 +10,7 @@ t_monster *monster_get(e_mob id) {
 
   for (i = 0; i < NUM_MONSTERS; ++i)
     if (g_monsters[i].id == id)
-      return (&g_monsters[i]);
+      return &g_monsters[i];
   printf("Can't find mob %i\n", id);
   exit(1);
 }

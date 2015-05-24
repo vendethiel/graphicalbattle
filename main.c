@@ -17,7 +17,7 @@ SDL_Window *create_window(void) {
     exit(1);
   }
   map_init();
-  return (window);
+  return window;
 }
 
 int main() {
@@ -38,5 +38,5 @@ int main() {
       game_tick(game);
   }
   game_quit(game);
-  return (0);
+  return 0;
 }

@@ -27,10 +27,12 @@ SDL_Window *create_window(void)
 int	main()
 {
 	SDL_Event	event;
+  SDL_Window *window;
 	t_game	*game;
 	int	cont;
 
-	game = game_init();
+  window = create_window();
+	game = game_init(window);
 	for (cont = 1; cont;)
 	{
 		while (SDL_PollEvent(&event))

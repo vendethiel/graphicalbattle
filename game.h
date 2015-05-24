@@ -27,6 +27,6 @@ typedef struct {
 
 extern t_tick g_tick_fns[];
 
-t_game	*game_init(void);
+t_game	*game_init(SDL_Window*);
 void	game_tick(t_game *);
 void	game_quit(t_game *);

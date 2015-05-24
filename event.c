@@ -20,3 +20,4 @@ void	event_keydown(SDL_Event event, t_game *game)
 		}
 	err("keydown : game is in corrupted state");
 }
+

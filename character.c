@@ -32,3 +32,4 @@ void	character_move(t_game *game)
 		}
 	}
 }
+

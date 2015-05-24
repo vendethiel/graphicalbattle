@@ -1,4 +1,4 @@
-CC		= gcc
+CC		= clang
 
 SRC		= main.c \
 		  map.c \

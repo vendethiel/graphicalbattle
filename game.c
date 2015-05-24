@@ -1,13 +1,13 @@
 #include "main.h"
 
-t_game	*game_init(void)
+t_game	*game_init(SDL_Window* window)
 {
 	t_game	*game;
 
 	game = xcalloc(1, sizeof(t_game));
 	game->character = character_init();
 	game->map = map_from_string(readfile("map.txt"), game->character);
-	game->window = create_window();
+	game->window = window;
 	game->screen = SDL_GetWindowSurface(game->window);
 	game->state = GAME_MENU;
 	return game;

@@ -20,6 +20,6 @@ void monster_play(t_game* game) {
 }
 
 void monster_remove(t_game* game) {
-	/* replace the mob tile with an empty one */
-	game->map->tilesets[game->character->y].tiles[game->character->x] = ' ';
+  /* replace the mob tile with an empty one */
+  game->map->tilesets[game->character->y].tiles[game->character->x] = ' ';
 }

@@ -50,7 +50,8 @@ void map_draw(t_game* game) {
   /* off_i and off_j are the "relative" coordinates (relative to the scrolling)
    */
 
-  base_i = game->character->y < MAX_DISPLAY ? 0 : game->character->y - MAX_DISPLAY;
+  base_i =
+      game->character->y < MAX_DISPLAY ? 0 : game->character->y - MAX_DISPLAY;
   max_i = base_i + MAX_TILES; /* how far are we seeing? */
   if (max_i >= game->map->h) {
     /* if it's further than the map's height, fix it up */
@@ -58,7 +59,8 @@ void map_draw(t_game* game) {
     max_i = base_i + MAX_TILES; /* recalculate */
   }
 
-  base_j = game->character->x < MAX_DISPLAY ? 0 : game->character->x - MAX_DISPLAY;
+  base_j =
+      game->character->x < MAX_DISPLAY ? 0 : game->character->x - MAX_DISPLAY;
   max_j = base_j + MAX_TILES; /* how far are we seeing? */
   if (max_j >= game->map->w) {
     /* if it's further than the map's width, fix it up */

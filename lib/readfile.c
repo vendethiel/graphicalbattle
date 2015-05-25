@@ -13,9 +13,9 @@ char *readfile(char *filename) {
     strl = ftell(handler);
     rewind(handler);
 
-    buffer = (char *)xmalloc(sizeof(char) * (strl + 1));
+    buffer = xmalloc(sizeof(char) * strl);
     readl = fread(buffer, sizeof(char), strl, handler);
-    buffer[strl + 1] = '\0';
+    buffer[strl] = '\0';
 
     if (strl != readl) {
       printf("unable to read file");

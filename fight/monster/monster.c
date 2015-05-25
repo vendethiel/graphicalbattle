@@ -18,3 +18,8 @@ t_monster* monster_get(e_mob id) {
 void monster_play(t_game* game) {
   game->character->hp -= 10;
 }
+
+void monster_remove(t_game* game) {
+	/* replace the mob tile with an empty one */
+	game->map->tilesets[game->character->y].tiles[game->character->x] = ' ';
+}

@@ -12,7 +12,6 @@ void tick_game_menu(t_game* game) {
 
 void tick_map(t_game* game) {
   character_move(game);
-  printf("drawing map!\n");
   map_draw(game);
 }
 

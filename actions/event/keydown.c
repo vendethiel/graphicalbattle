@@ -26,8 +26,10 @@ void event_keydown_map(SDL_Event event, t_game* game) {
 void event_keydown_fight(SDL_Event event, t_game* game) {
   if (event.key.keysym.sym == SDLK_RETURN) {
     game->fight->monster->hp -= 50;
-    if (game->fight->monster->hp < 1)
+    if (game->fight->monster->hp < 1) {
+			monster_remove(game);
       game->state = MAP;
+		}
   }
 }
 

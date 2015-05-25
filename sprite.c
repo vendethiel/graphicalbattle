@@ -44,6 +44,7 @@ void sprite_init_maps(void) {
   sprite_maps[0] = ximg_load("res/pokesprites.jpg");
 }
 
+#include <signal.h>
 t_sprite sprite_get(char id) {
   int i;
 
@@ -51,8 +52,10 @@ t_sprite sprite_get(char id) {
     if (g_sprites[i].id == id)
       return g_sprites[i];
   }
+
   printf("Sprite not found : '%c'\n", id);
-  return g_sprites[0];
+	/*raise(SIGSEGV);*/
+	return g_sprites[0];
 }
 
 t_sprite sprite_at(t_map *map, int x, int y) {

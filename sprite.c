@@ -1,6 +1,6 @@
 #include "main.h"
 
-SDL_Surface *sprite_maps[] = {
+SDL_Surface* sprite_maps[] = {
     0,
 };
 
@@ -34,7 +34,7 @@ t_sprite g_sprites[] = {
     {0, 0, 0, 0, 0},
 };
 
-void sprite_display_at(SDL_Surface *screen, t_sprite sprite, int w, int h) {
+void sprite_display_at(SDL_Surface* screen, t_sprite sprite, int w, int h) {
   SDL_BlitSurface(sprite_maps[sprite.mapid],
                   sdlh_rect(sprite.x, sprite.y, TILE_HEIGHT, TILE_WIDTH),
                   screen, sdlh_rect(w * TILE_WIDTH, h * TILE_HEIGHT, 0, 0));
@@ -54,10 +54,10 @@ t_sprite sprite_get(char id) {
   }
 
   printf("Sprite not found : '%c'\n", id);
-	/*raise(SIGSEGV);*/
-	return g_sprites[0];
+  raise(SIGSEGV);
+  return g_sprites[0];
 }
 
-t_sprite sprite_at(t_map *map, int x, int y) {
+t_sprite sprite_at(t_map* map, int x, int y) {
   return sprite_get(map->tilesets[y].tiles[x]);
 }

@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "../main.h"
 
-char *readfile(char *filename) {
-  char *buffer;
+char* readfile(char* filename) {
+  char* buffer;
   int strl, readl;
-  FILE *handler;
+  FILE* handler;
 
   handler = fopen(filename, "r");
   if (handler) {

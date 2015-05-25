@@ -6,7 +6,7 @@ t_event g_events[] = {{GAME_MENU, event_keydown_gamemenu},
                       {MAP_MENU, event_keydown_void},
                       {FIGHT, event_keydown_fight}};
 
-void event_keydown(SDL_Event event, t_game *game) {
+void event_keydown(SDL_Event event, t_game* game) {
   int i;
 
   for (i = 0; i < NUM_STATES; ++i)

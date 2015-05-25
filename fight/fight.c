@@ -1,7 +1,7 @@
 #include "../main.h"
 
-void fight_start(t_game *game, t_monster *monster) {
-  t_fight *fight;
+void fight_start(t_game* game, t_monster* monster) {
+  t_fight* fight;
 
   fight = xcalloc(1, sizeof(t_fight));
   fight->monster = monster;
@@ -9,9 +9,9 @@ void fight_start(t_game *game, t_monster *monster) {
   game->fight = fight;
 }
 
-void draw_in_battle(t_game *game) {
-  TTF_Font *font;
-  SDL_Surface *text;
+void draw_in_battle(t_game* game) {
+  TTF_Font* font;
+  SDL_Surface* text;
   SDL_Color color = {99, 0, 0, 0};
 
   font = TTF_OpenFont("./res/sixty.ttf", 45);
@@ -22,11 +22,11 @@ void draw_in_battle(t_game *game) {
   TTF_CloseFont(font);
 }
 
-void fight_bg(t_game *game) { /* @TODO refactor & finish */
-  static SDL_Surface *g_bg;
-  static SDL_Surface *g_bg_text;
-  static SDL_Surface *warrior;
-  static SDL_Surface *ninja;
+void fight_bg(t_game* game) { /* @TODO refactor & finish */
+  static SDL_Surface* g_bg;
+  static SDL_Surface* g_bg_text;
+  static SDL_Surface* warrior;
+  static SDL_Surface* ninja;
 
   if (!g_bg)
     g_bg = ximg_load("res/battle_bg.png"),
@@ -58,4 +58,5 @@ void fight_bg(t_game *game) { /* @TODO refactor & finish */
     TTF_CloseFont(font);
 */
 
-void fight_bg_text() {}
+void fight_bg_text() {
+}

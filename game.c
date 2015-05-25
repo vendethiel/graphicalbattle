@@ -1,11 +1,13 @@
 #include "main.h"
 
-t_game *game_init(SDL_Window *window) {
-  t_game *game;
+t_game* game_init(SDL_Window* window) {
+  t_game* game;
+  char* map_text;
 
+  map_text = readfile("map.txt");
   game = xcalloc(1, sizeof(t_game));
   game->character = character_init();
-  game->map = map_from_string(readfile("map.txt"), game->character);
+  game->map = map_from_string(map_text, game->character);
   game->window = window;
   game->screen = SDL_GetWindowSurface(game->window);
   game->state = GAME_MENU;
@@ -18,7 +20,7 @@ t_tick g_tick_fns[] = {{GAME_MENU, tick_game_menu},
                        {MAP_MENU, tick_map_menu},
                        {FIGHT, tick_fight}};
 
-void game_tick(t_game *game) {
+void game_tick(t_game* game) {
   int i;
 
   for (i = 0; i < NUM_STATES; ++i) {
@@ -31,7 +33,7 @@ void game_tick(t_game *game) {
   err("Game got into corrupted state. Aborting ...");
 }
 
-void game_quit(t_game *game) {
+void game_quit(t_game* game) {
   SDL_DestroyWindow(game->window);
   TTF_Quit();
   IMG_Quit();

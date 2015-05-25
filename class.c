@@ -1,1 +1,2 @@
-void class_init() {}
+void class_init() {
+}

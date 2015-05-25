@@ -1,7 +1,7 @@
 #include "main.h"
 
-SDL_Window *create_window(void) {
-  SDL_Window *window;
+SDL_Window* create_window(void) {
+  SDL_Window* window;
 
   SDL_Init(SDL_INIT_VIDEO);
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
@@ -22,8 +22,8 @@ SDL_Window *create_window(void) {
 
 int main() {
   SDL_Event event;
-  SDL_Window *window;
-  t_game *game;
+  SDL_Window* window;
+  t_game* game;
   int cont;
 
   window = create_window();

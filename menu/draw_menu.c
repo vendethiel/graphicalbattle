@@ -1,9 +1,9 @@
 #include "../main.h"
 
-void draw_menu(t_game *game) {
-  TTF_Font *font = NULL;
-  SDL_Surface *text = NULL;
-  SDL_Surface *welcome = NULL;
+void draw_menu(t_game* game) {
+  TTF_Font* font = NULL;
+  SDL_Surface* text = NULL;
+  SDL_Surface* welcome = NULL;
   SDL_Color color = {99, 0, 0, 0};
 
   font = TTF_OpenFont("./res/sixty.ttf", 65);
@@ -18,7 +18,7 @@ void draw_menu(t_game *game) {
 }
 
 void sound_menu() {
-  Mix_Chunk *music = NULL;
+  Mix_Chunk* music = NULL;
 
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) ==
       -1)

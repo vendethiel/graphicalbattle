@@ -1,7 +1,7 @@
 #include "main.h"
 
-t_character *character_init(void) {
-  t_character *character;
+t_character* character_init(void) {
+  t_character* character;
 
   character = xcalloc(1, sizeof(t_character));
   character->sprite = sprite_get('+');
@@ -9,7 +9,7 @@ t_character *character_init(void) {
   return character;
 }
 
-void character_move(t_game *game) {
+void character_move(t_game* game) {
   int newx;
   int newy;
   t_sprite sprite;
@@ -17,6 +17,7 @@ void character_move(t_game *game) {
   newx = game->character->x + game->character->vx;
   newy = game->character->y + game->character->vy;
   game->character->vx = game->character->vy = 0;
+  /* trigger=0 means non-walkable */
   if ((newx >= 0 && newx < game->map->w) &&
       (newy >= 0 && newy < game->map->h) &&
       sprite_at(game->map, newx, newy).trigger) {

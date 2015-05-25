@@ -1,10 +1,10 @@
 #include "../main.h"
 
-void draw_menu_class_select(t_game *game) {
-  SDL_Surface *warrior;
-  SDL_Surface *clerc;
-  SDL_Surface *mage;
-  SDL_Surface *ninja;
+void draw_menu_class_select(t_game* game) {
+  SDL_Surface* warrior;
+  SDL_Surface* clerc;
+  SDL_Surface* mage;
+  SDL_Surface* ninja;
 
   warrior = ximg_load("res/warrior.gif");
   clerc = ximg_load("res/clerc.gif");
@@ -21,9 +21,9 @@ void draw_menu_class_select(t_game *game) {
   SDL_FreeSurface(warrior);
 }
 
-void draw_menu_class(t_game *game) {
-  TTF_Font *font;
-  SDL_Surface *text;
+void draw_menu_class(t_game* game) {
+  TTF_Font* font;
+  SDL_Surface* text;
   SDL_Color color = {99, 0, 0, 0};
 
   font = TTF_OpenFont("./res/sixty.ttf", 45);

@@ -11,7 +11,6 @@ void event_keydown_classmenu(SDL_Event event, t_game* game) {
 }
 
 void event_keydown_map(SDL_Event event, t_game* game) {
-  printf("keydown map\n");
   if (event.key.keysym.sym == SDLK_LEFT)
     game->character->vx = -1;
   else if (event.key.keysym.sym == SDLK_RIGHT)
@@ -29,7 +28,9 @@ void event_keydown_fight(SDL_Event event, t_game* game) {
     if (game->fight->monster->hp < 1) {
       monster_remove(game);
       game->state = MAP;
-    }
+    } else {
+			monster_play(game);
+		}
   }
 }
 

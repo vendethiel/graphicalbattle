@@ -22,8 +22,6 @@ void tick_map_menu(t_game* game) {
 
 void tick_fight(t_game* game) {
   fight_bg(game);
-  if (game->fight->monster->hp > 1)
-    monster_play(game);
 }
 
 void tick_class_menu(t_game* game) {

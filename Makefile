@@ -1,4 +1,4 @@
-CXX		= clang
+CC		= clang
 
 SRC		= $(wildcard *.c) \
 				$(wildcard lib/*.c) $(wildcard lib/sdl/*.c) \

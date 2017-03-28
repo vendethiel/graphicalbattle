@@ -58,6 +58,7 @@ void map_draw(t_game* game) {
     max_i = base_i + MAX_TILES; /* recalculate */
   }
 
+  /* offset (0 means we aren't scrolling the map) */
   base_j =
       game->character->x < MAX_DISPLAY ? 0 : game->character->x - MAX_DISPLAY;
   max_j = base_j + MAX_TILES; /* how far are we seeing? */
@@ -67,7 +68,7 @@ void map_draw(t_game* game) {
     max_j = base_j + MAX_TILES; /* recalculate */
   }
 
-  for (off_i = 0, i = base_i; i < max_i; ++i, ++off_i) { /* fuck offffffff */
+  for (off_i = 0, i = base_i; i < max_i; ++i, ++off_i) {
     for (off_j = 0, j = base_j; j < max_j; ++j, ++off_j) {
       sprite_display_at(game->screen,
                         sprite_get(game->map->tilesets[i].tiles[j]), off_j,

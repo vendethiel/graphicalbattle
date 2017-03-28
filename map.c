@@ -8,7 +8,6 @@ t_map* map_from_string(char* str, t_character* character) {
   int i, j, w, h, total;
 
   for (w = i = 0, h = 1; str[i]; ++i) {
-    /* check i + 2 FOR SOME REASON. NO CLUE. */
     if (str[i] == '\n' && str[i + 1]) {
       ++h;
       if (!w) {

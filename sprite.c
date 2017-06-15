@@ -5,7 +5,7 @@ SDL_Surface* sprite_maps[] = {
 };
 
 /*   id,mapid,x,y, trigger*/
-/* _ = character */
+/* + = character */
 t_sprite g_sprites[] = {
     /* ground */
     {' ', 0, 71, 103, 1},

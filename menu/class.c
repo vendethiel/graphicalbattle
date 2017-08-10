@@ -1,36 +1,46 @@
 #include "../main.h"
 
-void draw_menu_class_select(t_game* game) {
-  SDL_Surface* warrior;
-  SDL_Surface* clerc;
-  SDL_Surface* mage;
-  SDL_Surface* ninja;
+static void draw_menu_class_select(t_game* game) {
+  for (int i = 0; game->classes[i].name; ++i) {
+    t_class_menu* class_menu = &game->classes[i].menu;
+    SDL_BlitSurface(class_menu->surface, sdlh_rect(0, 0, 512, 512), game->screen,
+        sdlh_rect(class_menu->x, class_menu->y, 0, 0));
+  }
+}
 
-  warrior = ximg_load("res/warrior.gif");
-  clerc = ximg_load("res/clerc.gif");
-  mage = ximg_load("res/magician.gif");
-  ninja = ximg_load("res/ninja.gif");
-  SDL_BlitSurface(warrior, sdlh_rect(0, 0, 512, 512), game->screen,
-                  sdlh_rect(50, 100, 0, 0));
-  SDL_BlitSurface(clerc, sdlh_rect(0, 0, 512, 512), game->screen,
-                  sdlh_rect(400, 100, 0, 0));
-  SDL_BlitSurface(mage, sdlh_rect(0, 0, 512, 512), game->screen,
-                  sdlh_rect(50, 300, 0, 0));
-  SDL_BlitSurface(ninja, sdlh_rect(0, 0, 512, 512), game->screen,
-                  sdlh_rect(400, 300, 0, 0));
-  SDL_FreeSurface(warrior);
+static void draw_menu_class_select_pointer(t_game* game) {
+  /* TODO move */
+  SDL_Color color = {99, 0, 0, 0};
+  static TTF_Font* font;
+  if (!font) font = TTF_OpenFont("./res/sixty.ttf", 45);
+  static SDL_Surface* text;
+  if (!text) text = TTF_RenderText_Blended(font, "*", color);
+
+  t_class* class = character_class(game);
+  SDL_BlitSurface(text, sdlh_rect(0, 0, 512, 512), game->screen,
+                  sdlh_rect(class->menu.x - 30, class->menu.y, 0, 0));
 }
 
 void draw_menu_class(t_game* game) {
-  TTF_Font* font;
-  SDL_Surface* text;
-  SDL_Color color = {99, 0, 0, 0};
+  static SDL_Surface* menu = NULL;
+  if (!menu) menu = ximg_load("res/texture.jpg");
+  SDL_BlitSurface(menu, sdlh_rect(0, 0, 512, 512), game->screen,
+                  sdlh_rect(0, 0, 0, 0));
 
-  font = TTF_OpenFont("./res/sixty.ttf", 45);
-  text = TTF_RenderText_Blended(font, "Choose", color);
+  // duplicated with draw_menu_class_select_pointer
+  SDL_Color color = {99, 0, 0, 0};
+  static TTF_Font* font;
+  if (!font) font = TTF_OpenFont("./res/sixty.ttf", 45);
+  static SDL_Surface* text;
+  if (!text) text = TTF_RenderText_Blended(font, "Choose", color);
+
   SDL_BlitSurface(text, sdlh_rect(0, 0, 512, 512), game->screen,
                   sdlh_rect(200, 0, 0, 0));
+  
   draw_menu_class_select(game);
+  draw_menu_class_select_pointer(game);
+  /* TODO somehow
   SDL_FreeSurface(text);
   TTF_CloseFont(font);
+  */
 }

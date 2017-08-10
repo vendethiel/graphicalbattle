@@ -5,12 +5,13 @@ t_game* game_init(SDL_Window* window) {
   char* map_text;
 
   map_text = readfile("map.txt");
-  game = xcalloc(1, sizeof(t_game));
+  game = xcalloc(1, sizeof *game);
   game->character = character_init();
   game->map = map_from_string(map_text, game->character);
   game->window = window;
   game->screen = SDL_GetWindowSurface(game->window);
   game->state = GAME_MENU;
+  game->classes = class_init();
   return game;
 }
 
@@ -21,9 +22,7 @@ t_tick g_tick_fns[] = {{GAME_MENU, tick_game_menu},
                        {FIGHT, tick_fight}};
 
 void game_tick(t_game* game) {
-  int i;
-
-  for (i = 0; i < NUM_STATES; ++i) {
+  for (int i = 0; i < NUM_STATES; ++i) {
     if (g_tick_fns[i].state == game->state) {
       g_tick_fns[i].fn(game);
       xupdate_window_surface(game->window);
@@ -34,6 +33,7 @@ void game_tick(t_game* game) {
 }
 
 void game_quit(t_game* game) {
+  class_quit();
   SDL_DestroyWindow(game->window);
   TTF_Quit();
   IMG_Quit();

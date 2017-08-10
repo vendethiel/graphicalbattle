@@ -24,11 +24,10 @@ int main() {
   SDL_Event event;
   SDL_Window* window;
   t_game* game;
-  int cont;
 
   window = create_window();
   game = game_init(window);
-  for (cont = 1; cont;) {
+  for (int cont = 1; cont;) {
     while (SDL_PollEvent(&event))
       if (event.type == SDL_QUIT)
         cont = 0;

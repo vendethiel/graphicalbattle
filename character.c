@@ -9,6 +9,10 @@ t_character* character_init(void) {
   return character;
 }
 
+t_class* character_class(t_game* game) {
+  return game->classes + game->character->classid;
+}
+
 void character_move(t_game* game) {
   int newx;
   int newy;

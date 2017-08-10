@@ -11,6 +11,7 @@ typedef struct s_game {
   t_character* character;
   struct s_fight* fight;
   e_state state;
+  t_class *classes;
 } t_game;
 
 typedef void (*tick_fn)(t_game*);

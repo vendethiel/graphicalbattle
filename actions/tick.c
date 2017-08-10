@@ -1,9 +1,8 @@
 #include "../main.h"
 
 void tick_game_menu(t_game* game) {
-  SDL_Surface* menu = NULL;
-
-  menu = ximg_load("res/texture.jpg");
+  static SDL_Surface* menu;
+  if (!menu) menu = ximg_load("res/texture.jpg");
   SDL_BlitSurface(menu, sdlh_rect(0, 0, 512, 512), game->screen,
                   sdlh_rect(0, 0, 0, 0));
   draw_menu(game);
@@ -25,11 +24,5 @@ void tick_fight(t_game* game) {
 }
 
 void tick_class_menu(t_game* game) {
-  SDL_Surface* menu = NULL;
-
-  menu = ximg_load("res/texture.jpg");
-  SDL_BlitSurface(menu, sdlh_rect(0, 0, 512, 512), game->screen,
-                  sdlh_rect(0, 0, 0, 0));
-
   draw_menu_class(game);
 }

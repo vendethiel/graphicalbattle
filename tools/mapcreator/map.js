@@ -17,14 +17,35 @@ var propOf = function (prop) {
 		return it[prop]
 	}
 }
+var inverse = function (obj) {
+  var inv = {}
+  for (let key in obj)
+    inv[obj[key]] = key;
+  return inv
+}
 
 // MAIN CODE
 function run() {
 	var map = runMap($('cells'), $('val'), $('width'), $('height'))
-	var values = runValues($('values'), $('val'),
-		[' ', 'S', '+']
-	)
-	var exporter = runExporter(map, $('export'))
+  var tiles = {
+    'R': 'rock',
+    'S': 'sapin',
+    'W': 'water',
+    ' ': 'grass',
+    'I': 'ice',
+    'G': 'ice-barrier',
+    'T': 'wood',
+    'B': 'barrier',
+    'M': 'bedrock',
+    'F': 'fire',
+    'J': 'ice-rock',
+    'P': 'panel',
+    'E': 'walkable-rock',
+    '+': 'player',
+    '?': 'mob',
+  }
+	var values = runValues($('values'), $('val'), tiles)
+	var exporter = runExporter(map, $('export'), inverse(tiles))
 }
 
 function runMap(el, valEl, widthEl, heightEl, valuesEl) {
@@ -49,8 +70,11 @@ function runMap(el, valEl, widthEl, heightEl, valuesEl) {
 	return map
 }
 
-function runExporter(map, values, exportEl) {
-	var exporter = new Exporter(map, values, exportEl)
+function runExporter(map, exportEl, tiles) {
+	var exporter = new Exporter(map, exportEl, tiles)
+  map.installInput(exporter)
+  exportEl.addEventListener('paste', exporter.update.bind(exporter))
+  exportEl.addEventListener('keyup', exporter.update.bind(exporter))
 	return exporter
 }
 
@@ -71,25 +95,39 @@ function EventDispatcher() {
 	}
 
 	this.trigger = function(name) {
+    var args = Array(arguments.length);
+    args[0] = this;
+    for (var i = 1; i < args.length; ++i) args[i] = arguments[i];
 		if (!callbacks[name])
 			return
 		var cb = callbacks[name]
 		for (var i = cb.length - 1; i >= 0; i--) {
-			cb[i](this)
+			cb[i].apply(this, args)
 		}
 	}
 }
 
 // -- EXPORTER
-function Exporter(map, exportEl) {
+function Exporter(map, exportEl, tiles) {
+  EventDispatcher.call(this)
+
+  this.tiles = tiles
 	map.on('change', this.updateBinding.bind(this))
 	this._attach(exportEl)
 }
 
+Exporter.prototype.update = function() {
+  var lookup = inverse(this.tiles)
+  var values = this.exportEl.value.split('\n').map(line =>
+    line.split('').map(c => lookup[c])
+  )
+  this.trigger('change', values)
+}
+
 Exporter.prototype.updateBinding = function(map) {
-	this.exportEl.innerHTML = map.cells.map(function (cells) {
-		return cells.join('')
-	}).join("\n")
+	this.exportEl.innerHTML = map.cells.map(
+    cells => cells.map(c => this.tiles[c] || ' ').join("")
+  ).join("\n")
 }
 
 Exporter.prototype._attach = function(exportEl) {
@@ -102,6 +140,11 @@ function Map(el, valEl, x, y) {
 
 	this._attach(el, valEl)
 	this.resize(x, y)
+}
+
+// Adds an event to the handler with a "change" event
+Map.prototype.installInput = function(updater) {
+  updater.on('change', (_, contents) => this.setContent(contents));
 }
 
 Map.prototype.resize = function(x, y) {
@@ -127,7 +170,15 @@ Map.prototype.resize = function(x, y) {
 
 	this._draw()
 	this.trigger('change')
-};
+}
+
+Map.prototype.setContent = function(contents) {
+  this.cells = contents
+  this.y = this.cells.length
+  this.x = this.cells[0].length
+	this._draw()
+	this.trigger('change')
+}
 
 Map.prototype._draw = function() {
 	var tr, td
@@ -138,19 +189,15 @@ Map.prototype._draw = function() {
 		tr = d.createElement('tr')
 		for (var j = 0; j < this.x; ++j) {
 			tr.appendChild(L('td', {
-				'data-y': i, 'data-x': j,
-				'className': 'cell',
-				// @TODO background n stuff
-				'innerHTML': this._htmlFor(this.cells[i][j])
+				'data-y': i,
+        'data-x': j,
+				'className': 'tile tile-'+this.cells[i][j],
+				//'innerHTML': this._htmlFor(this.cells[i][j])
 			}))
 		}
 		this.el.appendChild(tr)
 	}
 }
-
-Map.prototype._htmlFor = function(sigil) {
-	return sigil
-};
 
 Map.prototype._attach = function(el, valEl) {
 	var _this = this
@@ -163,7 +210,7 @@ Map.prototype._attach = function(el, valEl) {
 			return
 
 		dataset = e.target.dataset
-		_this.cells[dataset.y][dataset.x] = valEl.value
+		_this.cells[dataset.y][dataset.x] = valEl.dataset.value
 		_this.trigger('change')
 		_this._draw()
 	})
@@ -181,10 +228,11 @@ ValueManager.prototype._attach = function(el, valEl) {
 	this.el = el
 
 	el.addEventListener('click', function (e) {
-		if (e.target.tagName.toLowerCase() !== 'span')
+		if (e.target.tagName.toLowerCase() !== 'div')
 			return
 
-		valEl.value = e.target.dataset.value
+		valEl.className = 'tile tile-'+e.target.dataset.value
+    valEl.dataset.value = e.target.dataset.value
 	})
 }
 
@@ -192,16 +240,14 @@ ValueManager.prototype.draw = function() {
 	var value
 	var valueEls = []
 
-	for (var i = this.values.length - 1; i >= 0; i--) {
-		value = this.values[i]
-		valueEls.push(L('span', {
-			'className': 'cell',
-			'data-value': value,
-			'innerHTML': '[' + value + ']'
+  for (let value in this.values) {
+		valueEls.push(L('div', {
+			'className': 'tile tile-' + this.values[value],
+			'data-value': this.values[value],
 		}))
 	};
 
-	this.el.innerHTML = valueEls.map(propOf('outerHTML')).join(' &bull; ')
+	this.el.innerHTML = valueEls.map(propOf('outerHTML')).join('')
 }
 
 // GO

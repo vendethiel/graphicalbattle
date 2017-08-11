@@ -2,7 +2,7 @@
 <head>
 	<title>Map Creator</title>
 	<style>
-.cell {
+td {
 	width: 16px;
 	height: 16px;
 }
@@ -10,6 +10,31 @@
 .inline {
 	display: inline;
 }
+
+.tile {
+  display: inline-block;
+  background: url('../../res/pokesprites.jpg');
+  width: 16px;
+  height: 16px
+}
+
+/* 100 103 in sprite.c means -99 -102 here */
+.tile-rock { background-position: -555px -944px; }
+.tile-sapin { background-position: -91px -232px; }
+.tile-water { background-position: -301px -31px; }
+.tile-grass { background-position: -70px -102px; }
+.tile-ice { background-position: -802px -151px; }
+.tile-fire { background-position: -72px -451px; }
+.tile-wood { background-position: -317px -116px; }
+.tile-ice-rock { background-position: -888px -176px; }
+.tile-ice-barrier { background-position: -784px -194px; }
+.tile-player { background-position: -43px -279px; }
+.tile-panel { background-position: -24px -101px; }
+.tile-walkable-rock { background-position: -549px -30px; }
+.tile-mob { background-position: -383px -507px; }
+.tile-barrier { background-position: -436px -648px; }
+.tile-bedrock { background-position: -448px -843px; }
+
 	</style>
 </head>
 <body>
@@ -25,7 +50,7 @@
 		<h3 class="inline">Available elements :</h3>
 		<span id="values">
 		</span>
-		&bull; Currently selected : <input type="text" disabled name="val" id="val" />
+    &bull; Currently selected : <div id="val"/>
 	</div>
 	<table border=1 id="cells"></table>
 	<textarea name="export" id="export" cols="20" rows="20"></textarea>

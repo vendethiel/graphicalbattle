@@ -1,7 +1,7 @@
 #include "main.h"
 
 #define MAX_DISPLAY 15
-#define MAX_TILES 33
+#define MAX_TILES 32
 
 t_map* map_from_string(char* str, t_character* character) {
   t_map* map;
@@ -16,13 +16,14 @@ t_map* map_from_string(char* str, t_character* character) {
       }
     }
   }
+  if (str[i] == '\n') --h;
   map = xcalloc(1, sizeof(t_map));
   map->tilesets = xcalloc(h, sizeof(t_tileset));
   map->w = w;
   map->h = h;
   printf("map w=%d,h=%d\n", w, h);
   for (total = i = 0; i < h; ++i) {
-    map->tilesets[i].tiles = xcalloc(w, sizeof(char));
+    map->tilesets[i].tiles = xcalloc(w, 1);
     for (j = 0; j < w; ++j, ++total) {
       if (str[total] == '+') {
         /* set the character's position */

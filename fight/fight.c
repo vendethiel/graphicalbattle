@@ -5,8 +5,39 @@ void fight_start(t_game* game, t_monster* monster) {
 
   fight = xcalloc(1, sizeof(t_fight));
   fight->monster = monster;
+  fight->state = turn_player; // TODO some kind of level/stat-based stuff
+  fight->ticker = 0;
   game->state = FIGHT;
   game->fight = fight;
+}
+    //monster_play(game);
+
+void fight_player_attack(t_game* game) {
+  if (!game->fight || game->fight->state != turn_player) {
+    return;
+  }
+
+  game->fight->monster->hp -= 20;
+  printf("remaining monster hp: %d\n", game->fight->monster->hp);
+  if (game->fight->monster->hp < 1) {
+    monster_remove(game);
+    fight_end_to(game, MAP);
+  } else {
+    fight_change_state(game->fight, turn_player_after);
+  }
+}
+
+void fight_change_state(t_fight* fight, e_fight_state state) {
+  printf("changed fight state! %d -> %d\n", fight->state, state);
+  fight->state = state;
+  fight->ticker = 0;
+}
+
+void fight_end_to(t_game* game, e_state state) {
+  // TODO delete/dealloc fight properly, the have a mob and w/e else
+  free(game->fight);
+  game->fight = NULL;
+  game->state = state;
 }
 
 void draw_in_battle(t_game* game) {

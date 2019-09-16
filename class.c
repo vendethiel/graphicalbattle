@@ -26,4 +26,3 @@ void class_quit(void) {
     SDL_FreeSurface(list[i].menu.surface);
   }
 }
-/* TODO cleanup, SDL_FreeSurface */

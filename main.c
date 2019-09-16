@@ -33,6 +33,8 @@ int main() {
         cont = 0;
       else if (event.type == SDL_KEYDOWN)
         event_keydown(event, game);
+      else if (event.type == SDL_WINDOWEVENT)
+        game->screen = SDL_GetWindowSurface(window);
     if (cont)
       game_tick(game);
   }

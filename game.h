@@ -1,8 +1,6 @@
 #pragma once
 
-#define NUM_STATES 5
-
-typedef enum { GAME_MENU, CLASS_MENU, MAP, MAP_MENU, FIGHT } e_state;
+typedef enum { GAME_MENU, CLASS_MENU, MAP, MAP_MENU, FIGHT, GAMEOVER } e_state;
 
 typedef struct s_game {
   SDL_Window* window;

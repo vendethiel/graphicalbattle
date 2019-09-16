@@ -15,14 +15,16 @@ t_game* game_init(SDL_Window* window) {
   return game;
 }
 
+/* TODO GAMEOVER */
 t_tick g_tick_fns[] = {{GAME_MENU, tick_game_menu},
                        {CLASS_MENU, tick_class_menu},
                        {MAP, tick_map},
                        {MAP_MENU, tick_map_menu},
-                       {FIGHT, tick_fight}};
+                       {FIGHT, tick_fight},
+                       {0, NULL}};
 
 void game_tick(t_game* game) {
-  for (int i = 0; i < NUM_STATES; ++i) {
+  for (int i = 0; g_tick_fns[i].fn; ++i) {
     if (g_tick_fns[i].state == game->state) {
       g_tick_fns[i].fn(game);
       xupdate_window_surface(game->window);
@@ -33,6 +35,7 @@ void game_tick(t_game* game) {
 }
 
 void game_quit(t_game* game) {
+  // TODO clear fight if it's still here
   class_quit();
   SDL_DestroyWindow(game->window);
   TTF_Quit();

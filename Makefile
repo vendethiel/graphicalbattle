@@ -8,8 +8,7 @@ SRC		= $(wildcard *.c) \
 
 OBJ		= $(SRC:.c=.o)
 
-CFLAGS	= -W -Wall -Werror -Wextra -g -Wno-newline-eof
-
+CFLAGS	= `sdl2-config --cflags` -W -Wall -Werror -Wextra -g -Wno-newline-eof -Wno-deprecated-declarations
 
 LIBS	= -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 

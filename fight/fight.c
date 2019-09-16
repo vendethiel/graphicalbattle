@@ -10,17 +10,12 @@ void fight_start(t_game* game, t_monster* monster) {
   game->state = FIGHT;
   game->fight = fight;
 }
-    //monster_play(game);
 
 void fight_player_attack(t_game* game) {
-  if (!game->fight || game->fight->state != turn_player) {
-    return;
-  }
-
   game->fight->monster->hp -= 20;
   printf("remaining monster hp: %d\n", game->fight->monster->hp);
   if (game->fight->monster->hp < 1) {
-    monster_remove(game);
+    monster_remove(game); // XXX #11 this shouldn't be how this works
     fight_end_to(game, MAP);
   } else {
     fight_change_state(game->fight, turn_player_after);

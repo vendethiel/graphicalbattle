@@ -30,6 +30,11 @@ void event_keydown_map(SDL_Event event, t_game* game) {
 }
 
 void event_keydown_fight(SDL_Event event, t_game* game) {
+  if (!game->fight || game->fight->state != turn_player) {
+    return;
+  }
+
+  // TODO left/right to pick an action
   if (event.key.keysym.sym == SDLK_RETURN) {
     fight_player_attack(game);
   }

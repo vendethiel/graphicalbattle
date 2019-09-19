@@ -1,0 +1,5 @@
+mob 10 7 jirachi
+mob 11 7 jirachi
+mob 12 7 jirachi
+mob 35 20 jirachi
+character 3 3

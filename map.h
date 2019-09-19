@@ -10,6 +10,6 @@ typedef struct s_map {
   int h;
 } t_map;
 
-t_map* map_from_string(char* str, struct s_character* character);
+t_map* map_from_string(char* str);
 void map_init(void);
 void map_draw(struct s_game*);

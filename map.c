@@ -3,7 +3,7 @@
 #define MAX_DISPLAY 15
 #define MAX_TILES 32
 
-t_map* map_from_string(char* str, t_character* character) {
+t_map* map_from_string(char* str) {
   t_map* map;
   int i, j, w, h, total;
 
@@ -25,12 +25,6 @@ t_map* map_from_string(char* str, t_character* character) {
   for (total = i = 0; i < h; ++i) {
     map->tilesets[i].tiles = xcalloc(w, 1);
     for (j = 0; j < w; ++j, ++total) {
-      if (str[total] == '+') {
-        /* set the character's position */
-        character->y = i;
-        character->x = j;
-        str[total] = ' '; /* ... and just pretend it was grass */
-      }
       map->tilesets[i].tiles[j] = str[total];
     }
     ++total; /* skip \n */
@@ -50,8 +44,7 @@ void map_draw(t_game* game) {
   /* off_i and off_j are the "relative" coordinates (relative to the scrolling)
    */
 
-  base_i =
-      game->character->y < MAX_DISPLAY ? 0 : game->character->y - MAX_DISPLAY;
+  base_i = game->character->y < MAX_DISPLAY ? 0 : game->character->y - MAX_DISPLAY;
   max_i = base_i + MAX_TILES; /* how far are we seeing? */
   if (max_i >= game->map->h) {
     /* if it's further than the map's height, fix it up */
@@ -71,9 +64,19 @@ void map_draw(t_game* game) {
 
   for (off_i = 0, i = base_i; i < max_i; ++i, ++off_i) {
     for (off_j = 0, j = base_j; j < max_j; ++j, ++off_j) {
-      sprite_display_at(game->screen,
-                        sprite_get(game->map->tilesets[i].tiles[j]), off_j,
-                        off_i);
+      // sprite for cell
+      t_sprite* sprite = sprite_get(game->map->tilesets[i].tiles[j]);
+
+      // see if we have an entity that'd go there
+      for (t_entity* entity = game->entities; entity; entity = entity->next) {
+        // make sure entity_get_sprite doesn't return NULL (XXX not sure why we'd want that? triggers that shouldn't be displayed?)
+        if (entity->x == j && entity->y == i && entity_get_sprite(entity)) {
+          sprite = entity_get_sprite(entity);
+          break;
+        }
+      }
+
+      sprite_display_at(game->screen, sprite, off_j, off_i);
     }
   }
   sprite_display_at(game->screen, game->character->sprite,

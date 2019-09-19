@@ -16,20 +16,17 @@ t_class* character_class(t_game* game) {
 void character_move(t_game* game) {
   int newx;
   int newy;
-  t_sprite sprite;
+  t_entity* entity;
 
   newx = game->character->x + game->character->vx;
   newy = game->character->y + game->character->vy;
-  game->character->vx = game->character->vy = 0;
-  /* trigger=0 means non-walkable */
-  if ((newx >= 0 && newx < game->map->w) &&
+  game->character->vx = game->character->vy = 0; // TODO keyup
+  if ((entity = entity_at(game->entities, newx, newy))) {
+    entity_trigger(game, entity);
+  } else if ((newx >= 0 && newx < game->map->w) &&
       (newy >= 0 && newy < game->map->h) &&
-      sprite_at(game->map, newx, newy).trigger) {
+      sprite_at(game->map, newx, newy)->walkable) {
     game->character->x = newx;
     game->character->y = newy;
-    sprite = sprite_at(game->map, newx, newy);
-    if (sprite.trigger > 1) {
-      g_triggers[sprite.trigger - 2](game);
-    }
   }
 }

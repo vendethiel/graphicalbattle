@@ -10,6 +10,7 @@ typedef struct s_game {
   struct s_fight* fight;
   e_state state;
   t_class *classes;
+  t_entity *entities;
 } t_game;
 
 typedef void (*tick_fn)(t_game*);

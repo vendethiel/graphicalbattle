@@ -5,14 +5,14 @@ typedef struct s_sprite {
   int mapid;
   int x;
   int y;
-  int trigger;
+  int walkable;
 } t_sprite;
 
 extern SDL_Surface* sprite_maps[];
 
 extern t_sprite g_sprites[];
 
-void sprite_display_at(SDL_Surface*, t_sprite, int, int);
+void sprite_display_at(SDL_Surface*, t_sprite*, int, int);
 void sprite_init_maps(void);
-t_sprite sprite_get(char);
-t_sprite sprite_at(struct s_map*, int, int);
+t_sprite* sprite_get(char);
+t_sprite* sprite_at(struct s_map*, int, int);

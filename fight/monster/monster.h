@@ -1,17 +1,14 @@
 #pragma once
-
-typedef enum { MOB_JIRACHI } e_mob;
+struct s_monster_template;
 
 typedef struct s_monster {
-  e_mob id;
-  char* name;
+  struct s_monster_template* tmpl;
   int hp;
   int mp;
   /* script ?? */
 } t_monster;
 
-extern t_monster g_monsters[];
-
-t_monster* monster_get(e_mob);
+t_monster* monster_make(char*);
+t_sprite* monster_get_sprite(t_monster* monster);
 void monster_play(t_game*);
 void monster_remove(t_game*);

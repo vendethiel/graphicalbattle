@@ -8,7 +8,7 @@ typedef struct s_character {
   int vx;
   int vy;
   int classid;
-  struct s_sprite sprite;
+  struct s_sprite* sprite;
   int hp;
 } t_character;
 

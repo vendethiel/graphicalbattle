@@ -1,17 +1,25 @@
 #include "../main.h"
 
-void fight_start(t_game* game, t_monster* monster) {
+static t_fight* fight_init(t_monster* monster) {
   t_fight* fight;
 
-  fight = xcalloc(1, sizeof(t_fight));
+  fight = xmalloc(sizeof *fight);
   fight->monster = monster;
   fight->state = turn_player; // TODO some kind of level/stat-based stuff
   fight->ticker = 0;
+  return fight;
+}
+
+void fight_start(t_game* game, t_monster* monster) {
   game->state = FIGHT;
-  game->fight = fight;
+  game->fight = fight_init(monster);
 }
 
 void fight_player_attack(t_game* game) {
+  if (!game->fight || game->fight->state != turn_player) {
+    return;
+  }
+
   game->fight->monster->hp -= 20;
   printf("remaining monster hp: %d\n", game->fight->monster->hp);
   if (game->fight->monster->hp < 1) {

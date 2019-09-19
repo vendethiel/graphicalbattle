@@ -4,8 +4,8 @@ SDL_Surface* sprite_maps[] = {
     0,
 };
 
-/*   id,mapid,x,y, trigger*/
-/* + = character */
+// XXX sprites should probably have *also* a "long name" for mobs etc.
+/*   id,mapid,x,y, walkable*/
 t_sprite g_sprites[] = {
     /* ground */
     {' ', 0, 71, 103, 1},
@@ -34,9 +34,9 @@ t_sprite g_sprites[] = {
     {0, 0, 0, 0, 0},
 };
 
-void sprite_display_at(SDL_Surface* screen, t_sprite sprite, int w, int h) {
-  SDL_BlitSurface(sprite_maps[sprite.mapid],
-                  sdlh_rect(sprite.x, sprite.y, TILE_HEIGHT, TILE_WIDTH),
+void sprite_display_at(SDL_Surface* screen, t_sprite* sprite, int w, int h) {
+  SDL_BlitSurface(sprite_maps[sprite->mapid],
+                  sdlh_rect(sprite->x, sprite->y, TILE_HEIGHT, TILE_WIDTH),
                   screen, sdlh_rect(w * TILE_WIDTH, h * TILE_HEIGHT, 0, 0));
 }
 
@@ -44,20 +44,18 @@ void sprite_init_maps(void) {
   sprite_maps[0] = ximg_load("res/pokesprites.jpg");
 }
 
-#include <signal.h>
-t_sprite sprite_get(char id) {
+t_sprite* sprite_get(char id) {
   int i;
 
   for (i = 0; g_sprites[i].id != 0; ++i) {
     if (g_sprites[i].id == id)
-      return g_sprites[i];
+      return g_sprites + i;
   }
 
   printf("Sprite not found : '%c'\n", id);
-  raise(SIGSEGV);
-  return g_sprites[0];
+  exit(1);
 }
 
-t_sprite sprite_at(t_map* map, int x, int y) {
+t_sprite* sprite_at(t_map* map, int x, int y) {
   return sprite_get(map->tilesets[y].tiles[x]);
 }

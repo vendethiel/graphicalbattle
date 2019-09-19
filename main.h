@@ -11,6 +11,7 @@
 #define TILE_HEIGHT 16
 #define TILE_WIDTH 16
 
+struct s_entity;
 struct s_sprite;
 struct s_map;
 struct s_character;
@@ -23,13 +24,13 @@ struct s_class;
 #include "lib/sdl/main.h"
 
 #include "sprite.h"
+#include "entity.h"
 #include "class.h"
 #include "character.h"
 #include "map.h"
 #include "game.h"
 #include "event.h"
 
-#include "actions/triggers.h"
 #include "actions/tick.h"
 #include "actions/event/keydown.h"
 

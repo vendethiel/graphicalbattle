@@ -2,16 +2,18 @@
 
 t_game* game_init(SDL_Window* window) {
   t_game* game;
-  char* map_text;
+  char* map_text, * entities_text;
 
   map_text = readfile("map.txt");
+  entities_text = readfile("entities.txt");
   game = xcalloc(1, sizeof *game);
+  game->map = map_from_string(map_text);
   game->character = character_init();
-  game->map = map_from_string(map_text, game->character);
   game->window = window;
   game->screen = SDL_GetWindowSurface(game->window);
   game->state = GAME_MENU;
   game->classes = class_init();
+  game->entities = entities_from_string(game, entities_text);
   return game;
 }
 

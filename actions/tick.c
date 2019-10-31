@@ -25,29 +25,31 @@ void tick_fight(t_game* game) {
     return;
   }
 
-  // TODO `if (== turn_player) return;`? but then when do we draw anims etc?
-  if (game->fight->state != turn_player) {
-    if (game->fight->ticker == FIGHT_WAIT_TICKS) {
-      game->fight->ticker = 0;
-      switch (game->fight->state) {
-        case turn_monster:
-          monster_play(game);
-          break;
-        case turn_monster_after: // monster turn ended, player is next
-          fight_change_state(game->fight, turn_player);
-          break;
-        case turn_player_after: // player turn ended, monster is next
-          fight_change_state(game->fight, turn_monster);
-          break;
-        default:;
-      }
-    } else { // not at FIGHT_WAIT_TICKS yet
-      game->fight->ticker++;
-    }
-  }
-
   // TODO anim here
   fight_bg(game);
+
+  if (game->fight->state == turn_player) {
+    draw_menu_fight(game);
+    return; /* skip ticker stuff */
+  }
+
+  if (game->fight->ticker == FIGHT_WAIT_TICKS) {
+    game->fight->ticker = 0;
+    switch (game->fight->state) {
+      case turn_monster:
+        monster_play(game);
+        break;
+      case turn_monster_after: // monster turn ended, player is next
+        fight_change_state(game->fight, turn_player);
+        break;
+      case turn_player_after: // player turn ended, monster is next
+        fight_change_state(game->fight, turn_monster);
+        break;
+      default:;
+    }
+  } else { // not at FIGHT_WAIT_TICKS yet
+    game->fight->ticker++;
+  }
 }
 
 void tick_class_menu(t_game* game) {

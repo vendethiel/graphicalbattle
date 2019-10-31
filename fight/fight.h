@@ -10,6 +10,7 @@ typedef struct s_fight {
   t_monster* monster;
   e_fight_state state;
   int ticker;
+  e_menu_fight_state menu;
 } t_fight;
 
 void fight_start(t_game*, t_monster*);

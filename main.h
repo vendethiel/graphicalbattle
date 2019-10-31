@@ -35,6 +35,7 @@ struct s_class;
 #include "actions/event/keydown.h"
 
 #include "fight/monster/monster.h"
+#include "menu/fight.h"
 #include "fight/fight.h"
 
 #include "menu/draw_menu.h"

@@ -1,6 +1,7 @@
 #include "main.h"
 
 /* TODO read from a file */
+/* TODO sprite */
 static t_class* class_list(void) {
   static t_class list[] = {
     {"warrior", 100, 0, {"res/warrior.gif", 80, 100, NULL}},

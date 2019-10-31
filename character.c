@@ -3,7 +3,7 @@
 t_character* character_init(void) {
   t_character* character;
 
-  character = xcalloc(1, sizeof(t_character));
+  character = xcalloc(1, sizeof *character);
   character->sprite = sprite_get('+');
   character->hp = 100;
   return character;

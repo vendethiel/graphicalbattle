@@ -5,8 +5,7 @@ static t_fight* fight_init(t_monster* monster) {
 
   fight = xmalloc(sizeof *fight);
   fight->monster = monster;
-  fight->state = turn_player; // TODO some kind of level/stat-based stuff
-  fight->ticker = 0;
+  fight_change_state(fight, turn_player); // TODO some kind of level/stat-based stuff
   return fight;
 }
 
@@ -32,6 +31,7 @@ void fight_player_attack(t_game* game) {
 
 void fight_change_state(t_fight* fight, e_fight_state state) {
   printf("changed fight state! %d -> %d\n", fight->state, state);
+  fight->menu = menu_fight_attack;
   fight->state = state;
   fight->ticker = 0;
 }

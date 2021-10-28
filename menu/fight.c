@@ -15,7 +15,10 @@ static t_menu_fight actions[] = {
 
 void draw_menu_fight(t_game* game) {
   static SDL_Surface* asterisk;
+  static SDL_Rect* whole, * to;
   if (!asterisk) asterisk = draw_text("*");
+  if (!whole) whole = sdlh_rect(0, 0, 512, 512);
+  if (!to) to = sdlh_rect(0, 0, 0, 0);
   
   for (int i = 0; actions[i].text; ++i) {
     t_menu_fight* action = actions + i;
@@ -24,12 +27,13 @@ void draw_menu_fight(t_game* game) {
       action->surface = draw_text(action->text);
     }
 
-    SDL_BlitSurface(action->surface, sdlh_rect(0, 0, 512, 512), game->screen,
-        sdlh_rect(action->x, action->y, 0, 0));
+    to->x = action->x;
+    to->y = action->y;
+    SDL_BlitSurface(action->surface, whole, game->screen, to);
 
     if (game->fight->menu == action->state) {
-      SDL_BlitSurface(asterisk, sdlh_rect(0, 0, 512, 512), game->screen,
-          sdlh_rect(action->x - 30, action->y, 0, 0));
+      to->x -= 30; /* the asterisk is on the left */
+      SDL_BlitSurface(asterisk, whole, game->screen, to);
     }
   }
 }

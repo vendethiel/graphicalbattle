@@ -1,18 +1,20 @@
 #include "../main.h"
 
 void draw_menu(t_game* game) {
-  TTF_Font* font = NULL;
-  SDL_Surface* text = NULL;
-  SDL_Surface* welcome = NULL;
+  static TTF_Font* font = NULL;
+  static SDL_Surface* text = NULL;
+  static SDL_Surface* welcome = NULL;
+  static SDL_Rect* whole, * to1, * to2;
   SDL_Color color = {99, 0, 0, 0};
+  if (!font) font = TTF_OpenFont("./res/sixty.ttf", 65);
+  if (!text) text = TTF_RenderText_Blended(font, " Test Projet for Ea", color);
+  if (!welcome) welcome = TTF_RenderText_Blended(font, " ENTER", color);
+  if (!whole) whole = sdlh_rect(0, 0, 400, 300);
+  if (!to1) to1 = sdlh_rect(0, 0, 0, 0);
+  if (!to2) to2 = sdlh_rect(95, 150, 0, 0);
 
-  font = TTF_OpenFont("./res/sixty.ttf", 65);
-  text = TTF_RenderText_Blended(font, " Test Projet for Ea", color);
-  welcome = TTF_RenderText_Blended(font, " ENTER", color);
-  SDL_BlitSurface(text, sdlh_rect(0, 0, 400, 300), game->screen,
-                  sdlh_rect(0, 0, 0, 0));
-  SDL_BlitSurface(welcome, sdlh_rect(0, 0, 400, 300), game->screen,
-                  sdlh_rect(95, 150, 0, 0));
+  SDL_BlitSurface(text, whole, game->screen, to1);
+  SDL_BlitSurface(welcome, whole, game->screen, to2);
   SDL_FreeSurface(text);
   TTF_CloseFont(font);
 }

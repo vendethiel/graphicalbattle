@@ -2,12 +2,11 @@
 
 void draw_menu(t_game* game) {
   static TTF_Font* font = NULL;
-  static SDL_Surface* text = NULL;
-  static SDL_Surface* welcome = NULL;
-  static SDL_Rect* whole, * to1, * to2;
-  SDL_Color color = {99, 0, 0, 0};
+  static SDL_Surface* text = NULL, * welcome = NULL;
+  static SDL_Rect* whole = NULL, * to1 = NULL, * to2 = NULL;
+  static SDL_Color color = {99, 0, 0, 0};
   if (!font) font = TTF_OpenFont("./res/sixty.ttf", 65);
-  if (!text) text = TTF_RenderText_Blended(font, " Test Projet for Ea", color);
+  if (!text) text = TTF_RenderUTF8_Blended(font, " Test Projet for Ea", color);
   if (!welcome) welcome = TTF_RenderText_Blended(font, " ENTER", color);
   if (!whole) whole = sdlh_rect(0, 0, 400, 300);
   if (!to1) to1 = sdlh_rect(0, 0, 0, 0);
@@ -15,8 +14,10 @@ void draw_menu(t_game* game) {
 
   SDL_BlitSurface(text, whole, game->screen, to1);
   SDL_BlitSurface(welcome, whole, game->screen, to2);
+  /* TODO they'll never be cleaned up
   SDL_FreeSurface(text);
   TTF_CloseFont(font);
+  */
 }
 
 void sound_menu() {

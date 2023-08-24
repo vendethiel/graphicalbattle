@@ -10,14 +10,14 @@ OBJ		= $(SRC:.c=.o)
 
 CFLAGS	= `sdl2-config --cflags` -W -Wall -Wextra -g -Wno-newline-eof -Wno-deprecated-declarations
 
-LIBS	= -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+LIBS	= `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 NAME	= midgar
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -o $(NAME) $(OBJ) $(LIBS)
+	$(CC) -o $(NAME) $(OBJ) $(LIBS)
 
 clean:
 	rm -f $(OBJ)
@@ -32,5 +32,7 @@ test: all
 
 gdb: all
 	gdb $(NAME)
+lldb: all
+	lldb $(NAME)
 
 .PHONY: clean fclean test gdb

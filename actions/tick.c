@@ -21,6 +21,7 @@ void tick_map_menu(t_game* game) {
 
 void tick_fight(t_game* game) {
   if (!game->fight) {
+    // TODO log
     game->state = MAP; // should *never* happen
     return;
   }
@@ -35,6 +36,7 @@ void tick_fight(t_game* game) {
 
   if (game->fight->ticker == FIGHT_WAIT_TICKS) {
     game->fight->ticker = 0;
+    // TODO show text based on fight state
     switch (game->fight->state) {
       case turn_monster:
         monster_play(game);
@@ -45,7 +47,10 @@ void tick_fight(t_game* game) {
       case turn_player_after: // player turn ended, monster is next
         fight_change_state(game->fight, turn_monster);
         break;
-      default:;
+      default:
+          // TODO error here
+
+          ;
     }
   } else { // not at FIGHT_WAIT_TICKS yet
     game->fight->ticker++;

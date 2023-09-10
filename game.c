@@ -27,6 +27,7 @@ t_tick g_tick_fns[] = {{GAME_MENU, tick_game_menu},
 
 void game_tick(t_game* game) {
   for (int i = 0; g_tick_fns[i].fn; ++i) {
+    // TODO index `g_tick_fns[game->state]` or something
     if (g_tick_fns[i].state == game->state) {
       g_tick_fns[i].fn(game);
       xupdate_window_surface(game->window);

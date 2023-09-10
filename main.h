@@ -3,10 +3,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "include/SDL2/SDL.h"
-#include "include/SDL2/SDL_image.h"
-#include "include/SDL2/SDL_ttf.h"
-#include "include/SDL2/SDL_mixer.h"
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
 
 #define TILE_HEIGHT 16
 #define TILE_WIDTH 16

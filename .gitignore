@@ -2,4 +2,5 @@
 */*.o
 .svn
 
-midgar
+graphicalbattle
+Makefile

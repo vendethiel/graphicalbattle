@@ -1,12 +1,13 @@
-#include "../main.h"
 #include <stdio.h>
+#include "../main.h"
+#include "damage.h"
 
-static int fight_damage_player(t_character* character, t_monster* monster);
 static t_fight* fight_init(t_monster* monster) {
   t_fight* fight;
 
   fight = xmalloc(sizeof *fight);
   fight->monster = monster;
+  fight->state = turn_player; // So that fight_change_state doesnt read uninit
   fight_change_state(fight, turn_player);
   // TODO some kind of level/stat-based stuff
   return fight;
@@ -77,7 +78,7 @@ void fight_change_state(t_fight* fight, e_fight_state state) {
 }
 
 void fight_end_to(t_game* game, e_state state) {
-  // TODO delete/dealloc fight properly, the have a mob and w/e else
+  // TODO delete/dealloc fight properly, the mob and w/e else
   fight_log_clear(game->fight->log);
   free(game->fight);
   game->fight = NULL;
@@ -90,10 +91,11 @@ void fight_bg(t_game* game) { /* @TODO refactor & finish */
   static SDL_Surface* warrior;
   static SDL_Surface* ninja;
 
-  if (!g_bg)
-    g_bg = ximg_load("res/battle_bg.png"),
-    g_bg_text = ximg_load("res/battle_text.png"),
-    warrior = ximg_load("res/warrior.gif"), ninja = ximg_load("res/ninja.gif");
+  // TODO asset loader
+  if (!g_bg) g_bg = ximg_load("res/battle_bg.png");
+  if (!g_bg_text) g_bg_text = ximg_load("res/battle_text.png");
+  if (!warrior) warrior = ximg_load("res/warrior.gif");
+  if (!ninja) ninja = ximg_load("res/ninja.gif");
 
   SDL_BlitSurface(g_bg, sdlh_rect(0, 0, 512, 341), game->screen,
                   sdlh_rect(0, 0, 0, 0));

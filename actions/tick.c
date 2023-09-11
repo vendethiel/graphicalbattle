@@ -60,6 +60,7 @@ void tick_class_menu(t_game* game) {
 }
 
 void tick_gameover(t_game* game) {
+  // TODO print stats, score, ...
   if (game) {
     printf("You lost!\n");
     exit(0);

@@ -3,6 +3,7 @@ project(graphicalbattle C)
 
 set(CMAKE_C_COMPILER "clang")
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_GENERATOR "Ninja")
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

@@ -1,5 +1,40 @@
 #include "../main.h"
 
+static void fight_log_remove_single(t_fight_log *log) {
+  SDL_FreeSurface(log->surface);
+  free(log->text);
+  free(log);
+}
+
+void fight_log_clear(t_fight_log *log) {
+  while (log) {
+    t_fight_log *current = log;
+    log = current->next;
+
+    fight_log_remove_single(current);
+  }
+}
+
+static void fight_log_trim(t_fight_log* log, int max) {
+  t_fight_log *prev;
+  int i;
+
+  prev = NULL;
+  for (i = 0; log; ++i) {
+    if (i >= max) { // >= because max is 1-indexed, so 5th is i=4
+      if (prev) {
+        prev->next = NULL;
+        fight_log_clear(log);
+      }
+      // TODO else warn (means a bug, or a max of 0 which makes no sense)
+      // other solution would be to take t_fight_log** log, like a linked list
+      break;
+    }
+    prev = log;
+    log = log->next;
+  }
+}
+
 void fight_log_add(t_fight* fight, char* text) {
   t_fight_log *log;
 
@@ -9,7 +44,7 @@ void fight_log_add(t_fight* fight, char* text) {
   log->surface = NULL;
 
   fight->log = log;
-  // TODO ensure a maximum size
+  fight_log_trim(log, FIGHT_LOG_MAX_ENTRIES);
 }
 
 void fight_log(t_game* game) {

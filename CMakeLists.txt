@@ -37,7 +37,11 @@ add_executable(${PROJECT_NAME}
         menu/class.c
         menu/draw_menu.c
         menu/fight.c
-        sprite.c)
+        sprite.c
+        fight/log.c
+        fight/log.h
+        fight/damage.c
+        fight/damage.h)
 target_compile_options(${PROJECT_NAME} PRIVATE -W -Wall -Wextra -Wno-newline-eof -Wno-deprecated-declarations)
 
 execute_process(COMMAND sdl2-config --libs

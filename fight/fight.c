@@ -1,11 +1,14 @@
 #include "../main.h"
+#include <stdio.h>
 
+static int fight_damage_player(t_character* character, t_monster* monster);
 static t_fight* fight_init(t_monster* monster) {
   t_fight* fight;
 
   fight = xmalloc(sizeof *fight);
   fight->monster = monster;
-  fight_change_state(fight, turn_player); // TODO some kind of level/stat-based stuff
+  fight_change_state(fight, turn_player);
+  // TODO some kind of level/stat-based stuff
   return fight;
 }
 
@@ -22,12 +25,22 @@ static void fight_player_attack(t_game* game) {
   if (result <= 0)
     result = 0;
 
-  game->fight->monster->hp -= 20;
-  printf("remaining monster hp: %d\n", game->fight->monster->hp);
-  if (game->fight->monster->hp < 1) {
-    monster_remove(game); // XXX #11 this shouldn't be how this works
+  asprintf(&text, "Dealing %d damage to %s (%d -> %d)",
+            damage,
+            monster_name(game->fight->monster),
+            game->fight->monster->hp,
+            result);
+  game->fight->monster->hp = result;
+  puts(text);
+
+  if (game->fight->monster->hp <= 0) {
+    free(text);
+    // XXX #11 this shouldn't be how this works
+    // HOWEVER, flee should leave the mob. Maybe it's ok?
+    monster_remove(game);
     fight_end_to(game, MAP);
   } else {
+    fight_log_add(game->fight, text);
     fight_change_state(game->fight, turn_player_after);
   }
 }

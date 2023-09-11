@@ -1,4 +1,5 @@
 #include "../../main.h"
+#include "../damage.h"
 
 typedef struct s_monster_template {
   char* name;
@@ -40,12 +41,30 @@ t_sprite* monster_get_sprite(t_monster* monster) {
   return sprite_get(monster->tmpl->sprite);
 }
 
+char const* monster_name(t_monster* monster) {
+  return monster->tmpl->name;
+}
+
 void monster_play(t_game* game) {
-  game->character->hp -= 10;
-  printf("remaining char hp: %d\n", game->character->hp);
+  char *text;
+  int damage = fight_damage_monster(game->fight->monster, game->character);
+
+  int result = game->character->hp - damage;
+  if (result <= 0)
+    result = 0;
+
+  asprintf(&text, "Received %d damage (%d -> %d)",
+            damage,
+            game->character->hp,
+            result);
+  game->character->hp = result;
+  puts(text);
+
   if (game->character->hp < 1) {
+    free(text);
     fight_end_to(game, GAMEOVER);
   } else {
+    fight_log_add(game->fight, text);
     fight_change_state(game->fight, turn_monster_after);
   }
 }

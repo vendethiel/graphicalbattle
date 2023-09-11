@@ -118,7 +118,6 @@ t_entity* entities_from_string(t_game* game, char* str) {
     new = NULL;
     if (!strcmp(kind, "mob")) {
       int x, y;
-      char *kind;
 
       x = nextint(" ", &saveptr);
       y = nextint(" ", &saveptr),

@@ -36,4 +36,8 @@ void draw_menu_fight(t_game* game) {
       SDL_BlitSurface(asterisk, whole, game->screen, to);
     }
   }
+  // TODO additional class-based actions etc?
+  // TODO maybe store game->fight->actions, so that the enum is correct?
+  // TODO maybe une negative numbers for the built-in enum values like attack and flee?
+  // TODO use a submenu like MAGIC that'd have its own index
 }

@@ -10,5 +10,6 @@ typedef struct s_monster {
 
 t_monster* monster_make(char*);
 t_sprite* monster_get_sprite(t_monster* monster);
+char const* monster_name(t_monster*);
 void monster_play(t_game*);
 void monster_remove(t_game*);

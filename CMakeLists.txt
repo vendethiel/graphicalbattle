@@ -38,12 +38,13 @@ add_executable(${PROJECT_NAME}
         menu/draw_menu.c
         menu/fight.c
         sprite.c)
+target_compile_options(${PROJECT_NAME} PRIVATE -W -Wall -Wextra -Wno-newline-eof -Wno-deprecated-declarations)
 
 execute_process(COMMAND sdl2-config --libs
     OUTPUT_VARIABLE SDL_LIBS
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-target_link_libraries(graphicalbattle ${SDL_LIBS} SDL2_image SDL2_mixer SDL2_ttf)
+target_link_libraries(${PROJECT_NAME} ${SDL_LIBS} SDL2_image SDL2_mixer SDL2_ttf)
 
 #get_cmake_property(_variableNames VARIABLES)
 #list (SORT _variableNames)

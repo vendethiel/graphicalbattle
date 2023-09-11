@@ -104,20 +104,3 @@ void fight_bg(t_game* game) { /* @TODO refactor & finish */
   SDL_BlitSurface(ninja, sdlh_rect(0, 0, 512, 512), game->screen,
                   sdlh_rect(400, 75, 0, 0));
 }
-
-/*
-        TTF_Font *font = NULL;
-        SDL_Surface *text = NULL;
-        SDL_Color color = {99, 0, 0,0};
-
-        font = TTF_OpenFont("./res/sixty.ttf", 65);
-    text = TTF_RenderText_Blended(font, " Attack", color);
-    SDL_BlitSurface(text, sdlh_rect(0, 0, 400, 300),
-                game->screen, sdlh_rect(0, 0, 0, 0)
-        );
-    SDL_FreeSurface(text);
-    TTF_CloseFont(font);
-*/
-
-void fight_bg_text() {
-}

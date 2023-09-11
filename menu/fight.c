@@ -8,9 +8,9 @@ typedef struct s_menu_fight {
 } t_menu_fight;
 
 static t_menu_fight actions[] = {
-  { menu_fight_attack, "Attack", 100, 300, NULL },
-  { menu_fight_flee,   "Flee",   100, 350, NULL },
-  { -1,                 NULL,     0, 0    , NULL },
+  { menu_fight_attack, "Attack", 50, 300, NULL },
+  { menu_fight_flee,   "Flee",   50, 350, NULL },
+  { -1,                 NULL,     0,   0, NULL },
 };
 
 void draw_menu_fight(t_game* game) {

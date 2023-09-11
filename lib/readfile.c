@@ -4,7 +4,8 @@
 
 char* readfile(char* filename) {
   char* buffer;
-  int strl, readl;
+  unsigned long strl;
+  unsigned long readl;
   FILE* handler;
 
   handler = fopen(filename, "r");

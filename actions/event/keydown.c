@@ -35,8 +35,20 @@ void event_keydown_fight(SDL_Event event, t_game* game) {
   }
 
   // TODO left/right to pick an action
-  if (event.key.keysym.sym == SDLK_RETURN) {
-    fight_player_attack(game);
+  switch (event.key.keysym.sym) {
+  case SDLK_RETURN:
+    fight_player_act(game);
+    break;
+  case SDLK_UP:
+    if (game->fight->menu <= 0)
+      return;
+    game->fight->menu--;
+    break;
+  case SDLK_DOWN:
+    if (game->fight->menu >= menu_fight_num_values - 1)
+      return;
+    game->fight->menu++;
+    break;
   }
 }
 
